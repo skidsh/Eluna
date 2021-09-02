@@ -2346,12 +2346,13 @@ namespace LuaPlayer
      * Sends a vendor window to the [Player] from the [WorldObject] specified.
      *
      * @param [WorldObject] sender
+     * @param uint32 vendorentry = 0 : entry of the vendor to show, sender's vendor shown if omitted
      */
     int SendListInventory(lua_State* L, Player* player)
     {
         WorldObject* obj = Eluna::CHECKOBJ<WorldObject>(L, 2);
-
-        player->GetSession()->SendListInventory(obj->GET_GUID());
+        uint32 vendorentry = Eluna::CHECKVAL<uint32>(L, 3, 0);
+        player->GetSession()->SendListInventory(obj->GET_GUID(), vendorentry);
         return 0;
     }
 
