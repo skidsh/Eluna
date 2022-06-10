@@ -3144,7 +3144,7 @@ namespace LuaPlayer
     {
         std::string text = Eluna::CHECKVAL<std::string>(L, 2);
         uint32 lang = Eluna::CHECKVAL<uint32>(L, 3);
-#ifdef TRINITY
+#if defined(TRINITY) || defined(AZEROTHCORE)
         Player* receiver = Eluna::CHECKOBJ<Player>(L, 4);
 #else
         ObjectGuid guid = Eluna::CHECKVAL<ObjectGuid>(L, 4);
