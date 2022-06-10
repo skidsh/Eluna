@@ -36,6 +36,23 @@ namespace LuaGroup
         return 1;
     }
 
+#if !(defined(CLASSIC) || defined(TBC))
+    /**
+     * Returns 'true' if the [Group] is a LFG group
+     *
+     * @return bool isLFGGroup
+     */
+    int IsLFGGroup(lua_State* L, Group* group)
+    {
+#ifdef CMANGOS
+        Eluna::Push(L, group->IsLFGGroup());
+#else
+        Eluna::Push(L, group->isLFGGroup());
+#endif
+        return 1;
+    }
+#endif
+    
     /**
      * Returns 'true' if the [Group] is a raid [Group]
      *
@@ -43,7 +60,11 @@ namespace LuaGroup
      */
     int IsRaidGroup(lua_State* L, Group* group)
     {
+#ifdef CMANGOS
+        Eluna::Push(L, group->IsRaidGroup());
+#else
         Eluna::Push(L, group->isRaidGroup());
+#endif
         return 1;
     }
 
@@ -54,7 +75,11 @@ namespace LuaGroup
      */
     int IsBGGroup(lua_State* L, Group* group)
     {
+#ifdef CMANGOS
+        Eluna::Push(L, group->IsBattleGroup());        
+#else
         Eluna::Push(L, group->isBGGroup());
+#endif
         return 1;
     }
 

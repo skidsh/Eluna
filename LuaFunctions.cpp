@@ -389,6 +389,9 @@ ElunaRegister<Unit> UnitMethods[] =
     { "AddAura", &LuaUnit::AddAura },
     { "RemoveAura", &LuaUnit::RemoveAura },
     { "RemoveAllAuras", &LuaUnit::RemoveAllAuras },
+#if !defined(CLASSIC)
+    { "RemoveArenaAuras", &LuaUnit::RemoveArenaAuras },
+#endif
     { "ClearInCombat", &LuaUnit::ClearInCombat },
     { "DeMorph", &LuaUnit::DeMorph },
     { "SendUnitWhisper", &LuaUnit::SendUnitWhisper },
@@ -463,6 +466,7 @@ ElunaRegister<Player> PlayerMethods[] =
     { "GetItemByPos", &LuaPlayer::GetItemByPos },
     { "GetItemByEntry", &LuaPlayer::GetItemByEntry },
     { "GetItemByGUID", &LuaPlayer::GetItemByGUID },
+    { "GetMailItem", &LuaPlayer::GetMailItem },
     { "GetReputation", &LuaPlayer::GetReputation },
     { "GetEquippedItemBySlot", &LuaPlayer::GetEquippedItemBySlot },
     { "GetQuestLevel", &LuaPlayer::GetQuestLevel },
@@ -663,6 +667,9 @@ ElunaRegister<Player> PlayerMethods[] =
     { "ModifyMoney", &LuaPlayer::ModifyMoney },
     { "LearnSpell", &LuaPlayer::LearnSpell },
     { "LearnTalent", &LuaPlayer::LearnTalent },
+#if !defined(CLASSIC)
+    { "RemoveArenaSpellCooldowns", &LuaPlayer::RemoveArenaSpellCooldowns },
+#endif
     { "RemoveItem", &LuaPlayer::RemoveItem },
     { "RemoveLifetimeKills", &LuaPlayer::RemoveLifetimeKills },
     { "ResurrectPlayer", &LuaPlayer::ResurrectPlayer },
@@ -969,7 +976,7 @@ ElunaRegister<Item> ItemMethods[] =
     { "IsEquipped", &LuaItem::IsEquipped },
     { "HasQuest", &LuaItem::HasQuest },
     { "IsPotion", &LuaItem::IsPotion },
-#if defined(CLASSIC) || defined(TBC) || defined(WOTLK)
+#if defined(WOTLK)
     { "IsWeaponVellum", &LuaItem::IsWeaponVellum },
     { "IsArmorVellum", &LuaItem::IsArmorVellum },
 #endif
@@ -1076,7 +1083,9 @@ ElunaRegister<Group> GroupMethods[] =
     { "RemoveMember", &LuaGroup::RemoveMember },
     { "Disband", &LuaGroup::Disband },
     { "IsFull", &LuaGroup::IsFull },
-    // {"IsLFGGroup", &LuaGroup::IsLFGGroup},                     // :IsLFGGroup() - UNDOCUMENTED - Returns true if the group is an LFG group
+#if !(defined(CLASSIC) || defined(TBC))
+    { "IsLFGGroup", &LuaGroup::IsLFGGroup },
+#endif
     { "IsRaidGroup", &LuaGroup::IsRaidGroup },
     { "IsBGGroup", &LuaGroup::IsBGGroup },
     // {"IsBFGroup", &LuaGroup::IsBFGroup},                       // :IsBFGroup() - UNDOCUMENTED - Returns true if the group is a battlefield group
