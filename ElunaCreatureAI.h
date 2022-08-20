@@ -205,7 +205,7 @@ struct ElunaCreatureAI : CreatureAI
 #endif
     }
 
-#ifdef TRINITY
+#if defined TRINITY || AZEROTHCORE
     // Called for reaction at stopping attack at no attackers or targets
     void EnterEvadeMode(EvadeReason /*why*/) override
     {

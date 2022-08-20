@@ -303,7 +303,7 @@ public:
             }
             else
             {
-                ELUNA_LOG_ERROR("%s", buff);
+                ELUNA_LOG_ERROR("{}", buff);
             }
             return NULL;
         }

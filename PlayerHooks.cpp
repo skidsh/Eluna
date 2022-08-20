@@ -251,9 +251,9 @@ void Eluna::OnGiveXP(Player* pPlayer, uint32& amount, Unit* pVictim)
     CleanUpStack(3);
 }
 
-void Eluna::OnReputationChange(Player* pPlayer, uint32 factionID, int32& standing, bool incremental)
+bool Eluna::OnReputationChange(Player* pPlayer, uint32 factionID, int32& standing, bool incremental)
 {
-    START_HOOK(PLAYER_EVENT_ON_REPUTATION_CHANGE);
+    START_HOOK_WITH_RETVAL(PLAYER_EVENT_ON_REPUTATION_CHANGE, 1);
     Push(pPlayer);
     Push(factionID);
     Push(standing);
@@ -276,6 +276,8 @@ void Eluna::OnReputationChange(Player* pPlayer, uint32 factionID, int32& standin
     }
 
     CleanUpStack(4);
+
+    return 1;
 }
 
 void Eluna::OnDuelRequest(Player* pTarget, Player* pChallenger)

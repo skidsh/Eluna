@@ -12,6 +12,7 @@
 #ifdef AZEROTHCORE
 
 #include "BanMgr.h"
+#include "GameTime.h"
 
 enum BanMode
 {
@@ -156,6 +157,8 @@ namespace LuaGlobalFunctions
     {
 #ifdef TRINITY
         Eluna::Push(L, GameTime::GetGameTime());
+#elif AZEROTHCORE
+        Eluna::Push(L, GameTime::GetGameTime().count());
 #else
         Eluna::Push(L, eWorld->GetGameTime());
 #endif
@@ -2441,7 +2444,9 @@ namespace LuaGlobalFunctions
         }
         if (startNode >= nodeId)
             return 1;
+#ifndef AZEROTHCORE
         sTaxiPathSetBySource[startNode][nodeId - 1] = TaxiPathBySourceAndDestination(pathId, price);
+#endif
         TaxiPathEntry* pathEntry = new TaxiPathEntry();
 #ifdef TRINITY
         pathEntry->FromTaxiNode = startNode;
@@ -2609,7 +2614,7 @@ namespace LuaGlobalFunctions
      */
     int PrintInfo(lua_State* L)
     {
-        ELUNA_LOG_INFO("%s", GetStackAsString(L).c_str());
+        ELUNA_LOG_INFO("{}", GetStackAsString(L).c_str());
         return 0;
     }
 
@@ -2620,7 +2625,7 @@ namespace LuaGlobalFunctions
      */
     int PrintError(lua_State* L)
     {
-        ELUNA_LOG_ERROR("%s", GetStackAsString(L).c_str());
+        ELUNA_LOG_ERROR("{}", GetStackAsString(L).c_str());
         return 0;
     }
 
@@ -2631,7 +2636,7 @@ namespace LuaGlobalFunctions
      */
     int PrintDebug(lua_State* L)
     {
-        ELUNA_LOG_DEBUG("%s", GetStackAsString(L).c_str());
+        ELUNA_LOG_DEBUG("{}", GetStackAsString(L).c_str());
         return 0;
     }
 
